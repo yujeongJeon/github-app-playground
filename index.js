@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from 'body-parser';
 import dotenv from "dotenv";
-
+import { create_gist } from "./createGist.js";
 import { createTextEvent, verifyRequestByKeyId } from "@copilot-extensions/preview-sdk";
 import { prompt } from "@copilot-extensions/preview-sdk";
 
@@ -99,7 +99,13 @@ app.post('/', async (req, res) => {
 
                 if (functionName === "create_gist") {
                     try {
-                        // TODO: Call the createGist function with arguments
+                        // Call the createGist function with arguments
+                        const status = await create_gist(file_name, argsObj.description, selectedCode);
+                        if (status.statusCode === 200) {
+                            res.write(createTextEvent("Gist created successfully!"));
+                        } else {
+                            res.write(createTextEvent("Failed to create Gist:" + status.statusCode));
+                        }
                     } catch (error) {
                         console.error("Error creating gist:", error);
                         res.write(createTextEvent("Failed to create Gist:" + error));
