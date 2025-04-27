@@ -13,5 +13,11 @@
   "engines": {
     "node": "^22.14.0",
     "pnpm": "^10.6.5"
+  },
+  "dependencies": {
+    "@copilot-extensions/preview-sdk": "^5.0.1",
+    "body-parser": "<2.0.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
   }
 }
